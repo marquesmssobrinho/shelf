@@ -15,9 +15,9 @@ public class Author {
 
     public Author(String name) {
         this.name = name;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
     }
+
+    public Author(){}
 
     public Long getId() {
         return id;
@@ -35,8 +35,18 @@ public class Author {
         return updatedAt;
     }
 
+    public void update(Author author) {
+        this.name = author.getName();
+    }
+
     @PreUpdate
     private void onUpdate(){
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PrePersist
+    private void onCreate(){
+        this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 }

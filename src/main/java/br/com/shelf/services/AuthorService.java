@@ -18,4 +18,23 @@ public class AuthorService {
     public Author save(Author author) {
         return authorRepository.save(author);
     }
+
+    public Author findById(Long id) {
+        return authorRepository.findById(id).orElseThrow(() -> new RuntimeException("Erro"));
+    }
+
+    public Author update(Long id, Author author) {
+        Author authorDb = findById(id);
+        authorDb.update(author);
+
+        return save(authorDb);
+    }
+
+    public void delete(Long id) {
+
+        Author authorDb = findById(id);
+
+        authorRepository.delete(authorDb);
+    }
+
 }

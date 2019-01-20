@@ -2,7 +2,6 @@ package br.com.shelf.models;
 
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,13 +25,25 @@ public class Book {
         this.title = title;
         this.description = description;
         this.isbn = isbn;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+    }
+
+    public Book(){}
+
+    public void update(Book book) {
+        this.title = book.getTitle();
+        this.description = book.getDescription();
+        this.isbn = book.getIsbn();
     }
 
 
     @PreUpdate
     private void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PrePersist
+    private void onCreate() {
+        this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 

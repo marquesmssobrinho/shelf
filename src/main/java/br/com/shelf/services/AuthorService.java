@@ -3,6 +3,7 @@ package br.com.shelf.services;
 import br.com.shelf.models.Author;
 import br.com.shelf.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,9 +11,12 @@ public class AuthorService {
 
     private final AuthorRepository authorRepository;
 
+    private final BookService bookService;
+
     @Autowired
-    public AuthorService(AuthorRepository authorRepository) {
+    public AuthorService(AuthorRepository authorRepository, @Lazy BookService bookService) {
         this.authorRepository = authorRepository;
+        this.bookService = bookService;
     }
 
     public Author save(Author author) {
@@ -33,6 +37,8 @@ public class AuthorService {
     public void delete(Long id) {
 
         Author authorDb = findById(id);
+
+        bookService.deleteAuthorFromBook(authorDb);
 
         authorRepository.delete(authorDb);
     }

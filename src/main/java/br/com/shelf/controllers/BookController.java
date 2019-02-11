@@ -1,6 +1,7 @@
 package br.com.shelf.controllers;
 
 import br.com.shelf.models.Book;
+import br.com.shelf.requests.BookRequest;
 import br.com.shelf.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,9 @@ public class BookController {
     public BookController(BookService bookService) { this.bookService = bookService; }
 
     @PostMapping
-    public ResponseEntity<Book> save(@RequestBody Book book) {
+    public ResponseEntity<Book> save(@RequestBody BookRequest bookRequest) {
 
-        return new ResponseEntity<>(bookService.save(book), HttpStatus.CREATED);
+        return new ResponseEntity<>(bookService.save(bookRequest), HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
@@ -29,11 +30,12 @@ public class BookController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Book> update(@PathVariable Long id, @RequestBody Book book) {
+    public ResponseEntity<Book> update(@PathVariable Long id, @RequestBody BookRequest bookRequest) {
 
-        return new ResponseEntity<>(bookService.update(id, book), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.update(id, bookRequest), HttpStatus.OK);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
 

@@ -3,6 +3,7 @@ package br.com.shelf.models;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -17,14 +18,18 @@ public class Book {
 
     private String isbn;
 
+    @ManyToMany
+    private List<Author> authors;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    public Book(String title, String description, String isbn) {
+    public Book(String title, String description, String isbn, List<Author> authors) {
         this.title = title;
         this.description = description;
         this.isbn = isbn;
+        this.authors = authors;
     }
 
     public Book(){}
@@ -33,6 +38,7 @@ public class Book {
         this.title = book.getTitle();
         this.description = book.getDescription();
         this.isbn = book.getIsbn();
+        this.authors = book.getAuthors();
     }
 
 
@@ -70,4 +76,9 @@ public class Book {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
 }

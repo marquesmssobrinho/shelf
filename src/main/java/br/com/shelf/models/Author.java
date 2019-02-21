@@ -1,6 +1,10 @@
 package br.com.shelf.models;
 
+import br.com.shelf.utils.Messages;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Entity
@@ -9,6 +13,7 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = Messages.AUTHOR_NAME_NOT_BLANK)
     private String name;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

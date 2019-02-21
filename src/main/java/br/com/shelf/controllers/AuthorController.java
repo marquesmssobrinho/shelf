@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {
@@ -20,7 +22,7 @@ public class AuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<Author> save(@RequestBody Author author) {
+    public ResponseEntity<Author> save(@RequestBody @Valid Author author) {
 
         return new ResponseEntity<>(authorService.save(author), HttpStatus.CREATED);
     }
